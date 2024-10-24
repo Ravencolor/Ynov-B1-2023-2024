@@ -13,11 +13,13 @@ import (
 
 const wordslistFile = "words.txt"
 
+// randomWord sélectionne un mot aléatoire dans une liste de mots.
 func randomWord(words []string) string {
 	rand.Seed(time.Now().Unix())
 	return words[rand.Intn(len(words))]
 }
 
+// HangmanWord lit les mots d'un fichier et retourne un mot aléatoire.
 func HangmanWord() string {
 	f, err := os.Open(wordslistFile)
 	if err != nil {
@@ -35,13 +37,12 @@ func HangmanWord() string {
 	return randomWord(scannerlist)
 }
 
+// HangmanP lit les étapes du pendu à partir d'un fichier et retourne l'étape correspondant au nombre de tentatives.
 func HangmanP(attempts int) string {
 	f, err := os.Open("hangman.txt")
-
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	defer f.Close()
 
 	reader := bufio.NewReader(f)
@@ -49,17 +50,12 @@ func HangmanP(attempts int) string {
 	hangmanlist := []string{}
 	for {
 		n, err := reader.Read(buf)
-
 		if err != nil {
-
 			if err != io.EOF {
-
 				log.Fatal(err)
 			}
-
 			break
 		}
-
 		hangmanlist = append(hangmanlist, string(buf[0:n]))
 	}
 	return hangmanlist[attempts]
@@ -71,6 +67,7 @@ func main() {
 	maxAttempts := 10
 	attempts := 0
 
+	// Pré-remplir les devinettes avec la moitié des lettres du mot à deviner.
 	for n := len(wordToGuess)/2 - 1; n >= 0; n-- {
 		letter := ReturnLetter(wordToGuess)
 		guesses[letter] = true
@@ -101,15 +98,16 @@ func main() {
 		fmt.Println(HangmanP(attempts))
 		guesses[guess] = true
 	}
-
 }
 
+// ReturnLetter retourne une lettre aléatoire du mot donné.
 func ReturnLetter(word string) string {
 	num := rand.Intn(len(word))
 	word2 := []byte(word)
 	return string(word2[num])
 }
 
+// displayWord affiche le mot avec les lettres devinées révélées et les lettres non devinées sous forme de tirets bas.
 func displayWord(word string, guesses map[string]bool) {
 	for _, letter := range word {
 		if _, found := guesses[string(letter)]; found {
@@ -122,6 +120,7 @@ func displayWord(word string, guesses map[string]bool) {
 	fmt.Println()
 }
 
+// ToUpper convertit une chaîne de caractères en majuscules.
 func ToUpper(s string) string {
 	h := []rune(s)
 	result := ""
@@ -134,6 +133,7 @@ func ToUpper(s string) string {
 	return result
 }
 
+// isWordGuessed vérifie si le mot entier a été deviné.
 func isWordGuessed(word string, guesses map[string]bool) bool {
 	for _, letter := range word {
 		if _, found := guesses[string(letter)]; !found {
@@ -143,6 +143,7 @@ func isWordGuessed(word string, guesses map[string]bool) bool {
 	return true
 }
 
+// isLetterInWord vérifie si une lettre est dans le mot.
 func isLetterInWord(letter string, word string) bool {
 	for _, l := range word {
 		if string(l) == letter {
