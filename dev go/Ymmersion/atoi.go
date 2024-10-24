@@ -22,3 +22,9 @@ func Atoi(s string) int {
 	}
 	return result * sign
 }
+
+// Atoi convertit une chaîne de caractères en un entier.
+// La fonction ignore les espaces blancs au début de la chaîne,
+// gère les signes '+' et '-' et convertit les caractères numériques en entier.
+// Si la chaîne contient des caractères non numériques après les chiffres,
+// la fonction retourne 0.

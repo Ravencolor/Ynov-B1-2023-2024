@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// ConvertToInteger convertit un tableau de runes représentant un nombre en un entier.
 func ConvertToInteger(option []rune) int {
 	value := 0
 	for i := 0; i < len(option); i++ {
@@ -20,9 +21,11 @@ func ConvertToInteger(option []rune) int {
 
 func main() {
 	status := true
+	// Vérifie si le nombre d'arguments est suffisant
 	if len(os.Args) >= 4 {
 		option := []rune(os.Args[2])
 		value := ConvertToInteger(option)
+		// Parcourt les fichiers passés en arguments
 		for i := 3; i < len(os.Args); i++ {
 			file, err := os.Open(os.Args[i])
 			if err != nil {
@@ -30,6 +33,7 @@ func main() {
 				status = false
 				continue
 			}
+			// Affiche le nom du fichier si plusieurs fichiers sont passés en arguments
 			if len(os.Args) > 4 {
 				if i > 3 {
 					fmt.Print("\n")
@@ -43,6 +47,7 @@ func main() {
 			content := make([]byte, file_stat.Size())
 			file.Read(content)
 			contentinrune := []rune(string(content))
+			// Affiche les derniers caractères du fichier en fonction de la valeur spécifiée
 			if len(contentinrune) >= value {
 				last_chars := make([]rune, value)
 				for j := 0; j < len(last_chars); j++ {
@@ -56,6 +61,7 @@ func main() {
 	} else {
 		status = false
 	}
+	// Quitte le programme avec un code d'erreur si nécessaire
 	if !status {
 		os.Exit(1)
 	}

@@ -62,3 +62,5 @@ class Minion(Monster):
 class Buldozer(Monster):
     def special_ability(self):
         return "Crush"  # Capacité spéciale du Buldozer
+
+

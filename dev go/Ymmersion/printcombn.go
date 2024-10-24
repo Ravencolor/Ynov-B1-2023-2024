@@ -2,6 +2,7 @@ package piscine
 
 import "github.com/01-edu/z01"
 
+// Convertit un entier en chaîne de caractères (0-9)
 func IntToString(num int) string {
 	if num == 0 {
 		return "0"
@@ -26,6 +27,7 @@ func IntToString(num int) string {
 	}
 }
 
+// Convertit un entier en chaîne de caractères
 func itoa(num int) string {
 	var result string
 	if num == 0 {
@@ -38,12 +40,14 @@ func itoa(num int) string {
 	return result
 }
 
+// Affiche une chaîne de caractères
 func printString(str string) {
 	for _, c := range str {
 		z01.PrintRune(c)
 	}
 }
 
+// Fonction récursive pour générer et afficher les combinaisons
 func printComb(n int, prev int, result string, count *int) {
 	for i := 0; i < 10; i++ {
 		if prev < i {
@@ -60,6 +64,7 @@ func printComb(n int, prev int, result string, count *int) {
 	}
 }
 
+// Fonction principale pour démarrer la génération des combinaisons
 func PrintCombN(n int) {
 	var count int = 0
 	for i := 0; i < 10; i++ {

@@ -1,3 +1,18 @@
+// AtoiBase convertit une chaîne de caractères `s` en un entier en utilisant une base définie par la chaîne `t`.
+// La fonction retourne 0 si `t` contient des caractères dupliqués ou les caractères '-' ou '+'.
+//
+// Paramètres:
+// - s: La chaîne de caractères à convertir.
+// - t: La chaîne de caractères représentant la base.
+//
+// Retourne:
+// - Un entier représentant la valeur de `s` dans la base définie par `t`.
+//
+// Exemple:
+// - AtoiBase("101", "01") retourne 5 car "101" en base binaire (base 2) est égal à 5 en base décimale.
+//
+// Note:
+// - La fonction ne gère pas les bases avec un seul caractère ou les bases contenant des caractères invalides.
 package piscine
 
 func AtoiBase(s string, t string) int {

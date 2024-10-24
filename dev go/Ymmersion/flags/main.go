@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// Fonction Index qui retourne l'index de la première occurrence de toFind dans s
 func Index(s string, toFind string) int {
 	if len(toFind) == 0 {
 		return 0
@@ -27,11 +28,13 @@ func Index(s string, toFind string) int {
 	return -1
 }
 
+// Fonction printHelp qui affiche l'aide et termine le programme
 func printHelp() {
 	fmt.Printf("--insert\n  -i\n\t This flag inserts the string into the string passed as argument.\n--order\n  -o\n\t This flag will behave like a boolean, if it is called it will order the argument.\n")
 	os.Exit(0)
 }
 
+// Fonction parseFlags qui analyse les arguments et retourne les flags
 func parseFlags(args []string) []string {
 	var flags []string
 	for i, arg := range args {
@@ -72,6 +75,7 @@ func main() {
 		for _, r := range print_s {
 			runes = append(runes, r)
 		}
+		// Tri des runes par ordre croissant
 		for i := 0; i < len(runes)-1; i++ {
 			for j := i + 1; j < len(runes); j++ {
 				if runes[i] > runes[j] {
