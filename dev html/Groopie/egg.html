@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/egg.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="back">
+        <a href="/"><i class="fas fa-home"></i> Back</a>
+    </div>
+</div>
+<div class="toast" id="toast">
+    <div class="bg-priminary"> Achievement Unlocked:</div>
+    &nbsp; &nbsp; 🎧Easter egg!
+</div>
+
+<canvas id="canvas"></canvas>
+
+<!-- Ajout du lecteur de musique YouTube -->
+<div id="player"></div>
+
+<script>
+    // Chargement de l'API YouTube
+    function onYouTubeIframeAPIReady() {
+        var savedPosition = localStorage.getItem('ytPlayerPosition');
+        new YT.Player('player', {
+            height: '0',
+            width: '0',
+            videoId: 'uA51eLELZqE',
+            playerVars: {
+                autoplay: 1,
+                loop: 1,
+                controls: 0,
+                showinfo: 0,
+                modestbranding: 1,
+                volume: 5,
+                start: savedPosition || 0 // Démarrer à la position sauvegardée ou 0 si non sauvegardée
+            },
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
+
+    // Sauvegarder la position de lecture lors de la fermeture de la page
+    window.onbeforeunload = function() {
+        var player = document.getElementById('player');
+        if (player && player.getPlayerState && player.getPlayerState() === YT.PlayerState.PLAYING) {
+            localStorage.setItem('ytPlayerPosition', player.getCurrentTime());
+        }
+    };
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+<script src="js/egg.js"></script>
+
+</html>

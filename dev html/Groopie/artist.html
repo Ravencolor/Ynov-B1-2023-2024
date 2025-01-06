@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/artist.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+<div class="back">
+    <a href="/"><i class="fas fa-home"></i> Back</a>
+</div>
+
+<h1 id="Title">Groupie Tracker</h1>
+<div id="bar"></div>
+<div class="box">
+    <div class="image">
+        <img src="{{.A.Image}}" alt="Band Image">
+    </div>
+    <div class="name">
+        <h2>{{.A.Name}}</h2>
+    </div>
+    <div class="members">
+        <h3>Members</h3>
+        {{ range $value := .A.Members }}
+        <p>{{ $value }}</p>
+        {{ end }}
+    </div>
+    <div class="creation">
+        <h3>Date Founded:</h3>
+        <p class="date"><strong>{{.A.CreationDate}}</strong></p>
+    </div>
+    <div class="firstAlbum">
+        <h3>Release of First Album:</h3>
+        <p class="date"><strong>{{.A.FirstAlbum}}</strong></p>
+    </div>
+    <div class="DatesLocations">
+        <h3>Concert Dates and Location</h3>
+        {{ range $key, $value := .R.DatesLocations }}
+        {{ range $value}}
+        <p><strong>{{ $key }}:</strong> <span class="date">{{.}}</span></p>
+        {{ end }}
+        {{ end }}
+    </div>
+    <div class="MapLocations">
+        <h3>Map</h3>
+        <div id="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23823558.92252739!2d-117.1613252821955!3d41.387890373502636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2s%C3%89tats-Unis!5e0!3m2!1sfr!2sfr!4v1710757157153!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>        </div>
+    </div>
+    <div id="audio-container">
+        <h3>Top Track Preview</h3>
+        <iframe src="https://open.spotify.com/embed/track/{{.A.PreviewURL}}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    </div>
+
+</div>
+
+<a href="/egg" class="egg" type="submit">🥚</a>
+<script src="js/main.js"></script>
+<!-- Ajouter jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+</body>
+
+</html>

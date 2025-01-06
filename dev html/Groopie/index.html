@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+<h1 id="Title">Groupie Tracker</h1>
+<form id="searchForm">
+    <input type="text" id="searchInput" placeholder="Search for groups...">
+</form>
+<script src="js/main.js"></script>
+<div id="bar"></div>
+
+<h1>list of bands</h1>
+<div class="container">
+    {{range .}}
+    <form action="/artistInfo" method="post">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <input type="hidden" name="ArtistName" value="{{.Name}}" alt={{.Name}}>
+                    <input type="image" src={{.Image}}>
+                </div>
+                <div class="flip-card-back">
+                    <input type="submit" value="{{.Name}}">
+                </div>
+            </div>
+        </div>
+    </form>
+    {{end}}
+</div>
+<div id="player"></div>
+
+<script>
+    // Charger l'API YouTube
+    function onYouTubeIframeAPIReady() {
+        var savedPosition = localStorage.getItem('ytPlayerPosition');
+        new YT.Player('player', {
+            height: '0',
+            width: '0',
+            videoId: 'GGLNTiCVxxc',
+            playerVars: {
+                autoplay: 1,
+                loop: 1,
+                controls: 0,
+                showinfo: 0,
+                modestbranding: 1,
+                volume: 5,
+                start: savedPosition || 0 // Démarrer à la position sauvegardée ou 0 si non sauvegardée
+            },
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
+
+    // Sauvegarder la position de lecture lors de la fermeture de la page
+    window.onbeforeunload = function() {
+        var player = document.getElementById('player');
+        if (player && player.getPlayerState && player.getPlayerState() === YT.PlayerState.PLAYING) {
+            localStorage.setItem('ytPlayerPosition', player.getCurrentTime());
+        }
+    };
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+
+</html>
